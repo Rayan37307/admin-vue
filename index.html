@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Admin</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Syne:wght@400..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CDN for reliable matching -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#6366f1',
+              'on-primary': '#ffffff',
+              'primary-container': '#4338ca',
+              secondary: '#c0c1ff',
+              'secondary-container': '#312e81',
+              tertiary: '#ffb783',
+              'tertiary-container': '#7c2d12',
+              'tertiary-light': '#fed7aa',
+              error: '#ef4444',
+              'error-container': '#7f1d1d',
+              success: '#10b981',
+              surface: '#0b0f19',
+              'surface-dim': '#0f131d',
+              'surface-bright': '#1a1e2e',
+              'surface-container-low': '#1c1f2a',
+              'surface-container-lowest': '#0f131d',
+              'surface-container': '#111827',
+              'surface-container-high': '#1f2937',
+              'surface-container-highest': '#313540',
+              'on-surface': '#dfe2f1',
+              'on-surface-variant': '#c7c4d7',
+              'on-surface-muted': '#64748b',
+              'outline-variant': '#464554',
+              outline: '#6b7280',
+            },
+            fontFamily: {
+              headline: ['Syne', 'sans-serif'],
+              body: ['Outfit', 'sans-serif'],
+              label: ['Outfit', 'sans-serif'],
+            },
+          },
+        },
+      }
+    </script>
+  </head>
+  <body class="flex min-h-screen bg-surface">
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
