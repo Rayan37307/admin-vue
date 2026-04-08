@@ -13,7 +13,6 @@ const totalSteps = 4
 // Step 1: Task Info
 const taskInfo = ref({
   name: '',
-  project: '',
   projectId: undefined as number | undefined,
   dueDate: '',
   description: '',
@@ -73,6 +72,18 @@ const successMessage = ref('')
 const primaryAssignee = computed(() => {
   const assignee = teamMembers.value.find((m) => m.selectedRole === 'Assignee')
   return assignee ? assignee.id : undefined
+})
+
+// Computed: project name display
+const projectNames: Record<number, string> = {
+  1: 'Obsidian Arch Redesign',
+  2: 'Cloud Infrastructure Migration',
+  3: 'Client Portal Beta',
+}
+
+const projectNameDisplay = computed(() => {
+  if (!taskInfo.value.projectId) return ''
+  return projectNames[taskInfo.value.projectId] || ''
 })
 
 // Computed: completed subtask count
@@ -148,6 +159,10 @@ function validateForm(): boolean {
 
   if (!taskInfo.value.name.trim()) {
     formErrors.value.name = 'Task name is required'
+  }
+
+  if (!taskInfo.value.projectId) {
+    formErrors.value.project = 'Project selection is required'
   }
 
   if (taskInfo.value.dueDate) {
@@ -321,19 +336,23 @@ function dismissSuccess() {
               >
               <div class="relative">
                 <select
-                  v-model="taskInfo.project"
+                  v-model="taskInfo.projectId"
                   class="w-full appearance-none bg-surface-container rounded-xl border border-outline-variant/15 py-3 px-4 focus:ring-1 focus:ring-primary"
+                  :class="{ 'border-error/30': formErrors.project }"
                 >
-                  <option value="">Select a project</option>
-                  <option>Obsidian Arch Redesign</option>
-                  <option>Cloud Infrastructure Migration</option>
-                  <option>Client Portal Beta</option>
+                  <option :value="undefined">Select a project</option>
+                  <option :value="1">Obsidian Arch Redesign</option>
+                  <option :value="2">Cloud Infrastructure Migration</option>
+                  <option :value="3">Client Portal Beta</option>
                 </select>
                 <span
                   class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500"
                   >expand_more</span
                 >
               </div>
+              <p v-if="formErrors.project" class="text-error text-sm mt-1">
+                {{ formErrors.project }}
+              </p>
             </div>
             <div>
               <label
@@ -652,9 +671,12 @@ function dismissSuccess() {
                 >
                   {{ taskInfo.name || 'Untitled Task' }}
                 </p>
-                <p v-if="taskInfo.project" class="text-xs text-primary flex items-center gap-1">
+                <p
+                  v-if="projectNameDisplay"
+                  class="text-xs text-primary flex items-center gap-1"
+                >
                   <span class="material-symbols-outlined text-[14px]">folder_zip</span>
-                  {{ taskInfo.project }}
+                  {{ projectNameDisplay }}
                 </p>
               </div>
             </div>

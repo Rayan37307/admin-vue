@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { useTasksStore } from '../../stores/tasks'
 import { mapStatusToDisplay, mapPriorityToDisplay, formatDate } from '../../api/tasks'
 import type { TaskResource } from '../../api/tasks'
 
+const router = useRouter()
 const store = useTasksStore()
 
 // Filters
@@ -45,6 +47,11 @@ onMounted(() => {
 watch([() => filters.value.todo, () => filters.value.inProgress, () => filters.value.review, () => filters.value.completed, () => filters.value.priority], () => {
   applyFilters()
 })
+
+// Navigate to task details
+function navigateToTask(taskId: number) {
+  router.push({ name: 'TaskDetails', query: { id: taskId } })
+}
 
 // Display tasks from store
 const displayTasks = computed(() => {
@@ -335,9 +342,10 @@ const weeklyEfficiency = computed(() => {
             v-for="task in displayTasks.filter((t) => t.priority !== 'urgent')"
             :key="task.id"
             :class="[
-              'group bg-surface-container rounded-xl p-6 transition-all duration-400 hover:scale-[1.01] hover:bg-surface-container-high shadow-lg lg:grid lg:grid-cols-12 lg:items-center lg:gap-4 border border-transparent hover:border-primary/10',
+              'group bg-surface-container rounded-xl p-6 transition-all duration-400 hover:scale-[1.01] hover:bg-surface-container-high shadow-lg lg:grid lg:grid-cols-12 lg:items-center lg:gap-4 border border-transparent hover:border-primary/10 cursor-pointer',
               task.completed ? 'opacity-60' : '',
             ]"
+            @click="navigateToTask(task.id)"
           >
             <div class="col-span-4 mb-4 lg:mb-0">
               <div class="flex items-center gap-4">
@@ -417,7 +425,8 @@ const weeklyEfficiency = computed(() => {
           <!-- Featured / urgent task card -->
           <div
             v-if="displayTasks.find((t) => t.priority === 'urgent')"
-            class="group bg-gradient-to-br from-surface-container to-[#1a1e2e] rounded-xl p-8 transition-all duration-400 hover:shadow-2xl lg:grid lg:grid-cols-12 lg:items-center lg:gap-4 border border-primary/5 relative overflow-hidden"
+            class="group bg-gradient-to-br from-surface-container to-[#1a1e2e] rounded-xl p-8 transition-all duration-400 hover:shadow-2xl lg:grid lg:grid-cols-12 lg:items-center lg:gap-4 border border-primary/5 relative overflow-hidden cursor-pointer"
+            @click="navigateToTask(displayTasks.find((t) => t.priority === 'urgent')!.id)"
           >
             <div class="absolute -right-12 -top-12 w-32 h-32 bg-primary/10 rounded-full blur-3xl"></div>
             <div

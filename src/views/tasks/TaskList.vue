@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { useTasksStore } from '../../stores/tasks'
 
+const router = useRouter()
 const tasksStore = useTasksStore()
 
 // Filter state
@@ -177,6 +179,11 @@ watch([selectedProject, selectedStatus, selectedPriority], () => {
   fetchTasks(1)
 })
 
+// Navigate to task details
+function navigateToTask(taskId: number) {
+  router.push({ name: 'TaskDetails', query: { id: taskId } })
+}
+
 // Initial fetch
 onMounted(() => {
   fetchTasks(1)
@@ -290,14 +297,20 @@ onMounted(() => {
             </tr>
 
             <!-- Task rows -->
-            <tr v-for="task in displayTasks" v-else :key="task.id" class="group hover:bg-surface-bright/30 transition-colors">
-              <td class="px-6 py-5">
+            <tr
+              v-for="task in displayTasks"
+              v-else
+              :key="task.id"
+              class="group hover:bg-surface-bright/30 transition-colors cursor-pointer"
+              @click="navigateToTask(task.id)"
+            >
+              <td class="px-6 py-5" @click.stop>
                 <input :id="`task-${task.id}`" class="rounded bg-surface-container border-outline-variant/30 text-primary focus:ring-primary h-4 w-4" type="checkbox" />
               </td>
               <td class="px-6 py-5">
                 <div class="flex flex-col">
-                  <span class="text-on-surface font-semibold text-sm group-hover:text-primary transition-colors cursor-pointer">{{ task.name }}</span>
-                  <span class="text-xs text-outline cursor-pointer hover:underline">{{ task.project }}</span>
+                  <span class="text-on-surface font-semibold text-sm group-hover:text-primary transition-colors">{{ task.name }}</span>
+                  <span class="text-xs text-outline hover:underline">{{ task.project }}</span>
                 </div>
               </td>
               <td class="px-6 py-5">
