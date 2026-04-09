@@ -127,3 +127,113 @@ export async function revokeAllSessions(): Promise<void> {
 export async function revokeOtherSessions(): Promise<void> {
   await apiClient.post('/sessions/revoke-others')
 }
+
+// ─── Chat / Messages ─────────────────────────────────────────────────────────
+
+export interface ChatChannel {
+  id: number
+  name: string
+  unread_count?: number
+  [key: string]: unknown
+}
+
+export interface ChatConversation {
+  id: number
+  user: {
+    id: number
+    name: string
+    avatar: string | null
+  } | null
+  [key: string]: unknown
+}
+
+export interface ChatMessage {
+  id: number
+  content: string
+  content_hash?: string
+  user_id: number
+  user?: {
+    id: number
+    name: string
+    avatar: string | null
+  }
+  _hashOk?: boolean | null
+  [key: string]: unknown
+}
+
+export interface ApiResponse<T> {
+  data?: T
+  [key: string]: unknown
+}
+
+/**
+ * List all chat channels.
+ */
+export async function listChatChannels(): Promise<ApiResponse<ChatChannel[]>> {
+  const response = await apiClient.get<ApiResponse<ChatChannel[]>>('/chat/channels')
+  return response.data
+}
+
+/**
+ * Get messages for a specific channel.
+ */
+export async function getChannelMessages(
+  channelId: number,
+  params: Record<string, unknown> = {}
+): Promise<ApiResponse<ChatMessage[]>> {
+  const response = await apiClient.get<ApiResponse<ChatMessage[]>>(
+    `/chat/channels/${channelId}/messages`,
+    { params }
+  )
+  return response.data
+}
+
+/**
+ * Send a message to a channel.
+ */
+export async function sendChannelMessage(
+  channelId: number,
+  content: string
+): Promise<ApiResponse<ChatMessage>> {
+  const response = await apiClient.post<ApiResponse<ChatMessage>>(
+    `/chat/channels/${channelId}/messages`,
+    { content }
+  )
+  return response.data
+}
+
+/**
+ * List all chat conversations (DMs).
+ */
+export async function listChatConversations(): Promise<ApiResponse<ChatConversation[]>> {
+  const response = await apiClient.get<ApiResponse<ChatConversation[]>>('/chat/conversations')
+  return response.data
+}
+
+/**
+ * Get messages for a specific conversation.
+ */
+export async function getConversationMessages(
+  conversationId: number,
+  params: Record<string, unknown> = {}
+): Promise<ApiResponse<ChatMessage[]>> {
+  const response = await apiClient.get<ApiResponse<ChatMessage[]>>(
+    `/chat/conversations/${conversationId}/messages`,
+    { params }
+  )
+  return response.data
+}
+
+/**
+ * Send a message to a conversation.
+ */
+export async function sendConversationMessage(
+  conversationId: number,
+  content: string
+): Promise<ApiResponse<ChatMessage>> {
+  const response = await apiClient.post<ApiResponse<ChatMessage>>(
+    `/chat/conversations/${conversationId}/messages`,
+    { content }
+  )
+  return response.data
+}

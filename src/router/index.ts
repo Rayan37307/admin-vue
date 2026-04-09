@@ -18,6 +18,9 @@ import ForgotPassword from '../views/auth/ForgotPassword.vue'
 import ResetPassword from '../views/auth/ResetPassword.vue'
 import AccessDenied from '../views/auth/AccessDenied.vue'
 
+// Messages views
+import Messages from '../views/messages/Messages.vue'
+
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -100,6 +103,13 @@ const routes: RouteRecordRaw[] = [
     path: '/tasks/manage',
     name: 'TaskManage',
     component: TaskManage,
+    meta: { requiresAuth: true }
+  },
+  // ─── Messages Routes (protected) ───────────────────────────────────────────
+  {
+    path: '/messages',
+    name: 'Messages',
+    component: Messages,
     meta: { requiresAuth: true }
   }
 ]
