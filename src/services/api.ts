@@ -340,3 +340,82 @@ export async function markAllAsRead(): Promise<unknown> {
 export async function deleteNotification(notificationId: string | number): Promise<void> {
   await apiClient.delete(`/notifications/${notificationId}`)
 }
+
+// ─── Profile ─────────────────────────────────────────────────────────────────
+
+export interface ProfileData {
+  id: number
+  name: string
+  first_name: string
+  last_name: string
+  email: string
+  phone: string
+  phone_number?: string
+  username: string
+  avatar: string | null
+  avatar_url?: string
+  profile_image_link?: string
+  role: string
+  company_name?: string
+  client_profile?: {
+    company_name?: string
+  }
+}
+
+export interface ProfileResponse {
+  user?: ProfileData
+  [key: string]: unknown
+}
+
+export interface ActivitySummaryResponse {
+  data?: Record<string, unknown>
+  [key: string]: unknown
+}
+
+/**
+ * Get the authenticated user's profile.
+ */
+export async function getProfile(): Promise<ProfileResponse> {
+  const response = await apiClient.get<ProfileResponse>('/user/profile')
+  return response.data
+}
+
+/**
+ * Update the authenticated user's profile.
+ */
+export async function updateProfile(data: Record<string, string>): Promise<ProfileResponse> {
+  const payload = { ...data }
+  if (payload.phone) {
+    payload.phone_number = payload.phone
+    delete payload.phone
+  }
+  if (payload.first_name || payload.last_name) {
+    const firstName = payload.first_name || ''
+    const lastName = payload.last_name || ''
+    if (firstName && lastName) {
+      payload.name = `${firstName} ${lastName}`.trim()
+    }
+  }
+  const response = await apiClient.put<ProfileResponse>('/user/profile', payload)
+  return response.data
+}
+
+/**
+ * Upload a new avatar image.
+ */
+export async function updateAvatar(formData: FormData): Promise<ProfileResponse> {
+  const response = await apiClient.post<ProfileResponse>('/auth/avatar', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+  return response.data
+}
+
+/**
+ * Get the user's activity summary.
+ */
+export async function getActivitySummary(): Promise<ActivitySummaryResponse> {
+  const response = await apiClient.get<ActivitySummaryResponse>('/user/activity-summary')
+  return response.data
+}

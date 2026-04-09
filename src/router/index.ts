@@ -25,6 +25,9 @@ import Messages from '../views/messages/Messages.vue'
 import Notifications from '../views/notifications/Notifications.vue'
 import NotificationDetails from '../views/notifications/NotificationDetails.vue'
 
+// Profile
+import Profile from '../views/Profile.vue'
+
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -127,6 +130,13 @@ const routes: RouteRecordRaw[] = [
     path: '/notifications/details',
     name: 'NotificationDetails',
     component: NotificationDetails,
+    meta: { requiresAuth: true }
+  },
+  // ─── Profile Route (protected) ─────────────────────────────────────────────
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile,
     meta: { requiresAuth: true }
   }
 ]
