@@ -263,7 +263,7 @@ function dismissSuccess() {
 
     <!-- Step indicator -->
     <div class="mb-12">
-      <div class="flex items-center justify-between relative max-w-4xl">
+      <div class="flex items-center justify-between relative w-full">
         <div class="absolute top-5 left-0 w-full h-[2px] bg-surface-container-highest z-0"></div>
         <div
           class="absolute top-5 left-0 h-[2px] bg-primary z-0"

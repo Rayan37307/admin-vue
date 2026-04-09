@@ -1,10 +1,10 @@
 <template>
   <aside
     id="app-sidebar"
-    class="h-screen w-64 fixed left-0 top-0 flex flex-col bg-surface border-r border-white/5 z-60 -translate-x-full md:translate-x-0 transition-transform duration-300"
+    class="h-screen w-56 fixed left-0 top-0 flex flex-col bg-surface border-r border-white/5 z-60 -translate-x-full md:translate-x-0 transition-transform duration-300"
   >
     <!-- Logo / Brand -->
-    <div class="p-8 mb-4">
+    <div class="p-6 mb-4">
       <div class="flex items-center gap-3">
         <div
           class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-lg shadow-primary/20"
@@ -25,13 +25,13 @@
     </div>
 
     <!-- Main Navigation Links -->
-    <nav class="flex-1 px-4 space-y-1 overflow-y-auto no-scrollbar">
+    <nav class="flex-1 px-3 space-y-1 overflow-y-auto no-scrollbar">
       <RouterLink to="/tasks" custom v-slot="{ href, navigate, isActive }">
         <a
           :href="href"
           @click="navigate"
           :class="[
-            'w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group',
+            'w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group',
             isActive
               ? 'bg-primary/10 text-primary'
               : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
@@ -54,7 +54,7 @@
           :href="href"
           @click="navigate"
           :class="[
-            'w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group',
+            'w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group',
             isActive
               ? 'bg-primary/10 text-primary'
               : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
@@ -77,7 +77,7 @@
           :href="href"
           @click="navigate"
           :class="[
-            'w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group',
+            'w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group',
             isActive
               ? 'bg-primary/10 text-primary'
               : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
@@ -100,7 +100,7 @@
           :href="href"
           @click="navigate"
           :class="[
-            'w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group',
+            'w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group',
             isActive
               ? 'bg-primary/10 text-primary'
               : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
@@ -123,7 +123,7 @@
           :href="href"
           @click="navigate"
           :class="[
-            'w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group',
+            'w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group',
             isActive
               ? 'bg-primary/10 text-primary'
               : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
@@ -146,7 +146,7 @@
           :href="href"
           @click="navigate"
           :class="[
-            'w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group',
+            'w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group',
             isActive
               ? 'bg-primary/10 text-primary'
               : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
@@ -169,7 +169,7 @@
           :href="href"
           @click="navigate"
           :class="[
-            'w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group',
+            'w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group',
             isActive
               ? 'bg-primary/10 text-primary'
               : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
@@ -192,7 +192,7 @@
           :href="href"
           @click="navigate"
           :class="[
-            'w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group',
+            'w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group',
             isActive
               ? 'bg-primary/10 text-primary'
               : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
@@ -219,7 +219,7 @@
           :href="href"
           @click="navigate"
           :class="[
-            'w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group',
+            'w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group',
             isActive
               ? 'bg-primary/10 text-primary'
               : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
@@ -247,7 +247,7 @@
           :href="href"
           @click="navigate"
           :class="[
-            'w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group',
+            'w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group',
             isActive
               ? 'bg-primary/10 text-primary'
               : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
@@ -267,8 +267,8 @@
     </nav>
 
     <!-- User Profile & Logout at Bottom -->
-    <div class="p-4 mt-auto border-t border-white/5">
-      <div class="flex items-center gap-3 px-4 py-3 mb-2">
+    <div class="p-3 mt-auto border-t border-white/5">
+      <div class="flex items-center gap-3 px-3 py-3 mb-2">
         <div
           v-if="authStore.userAvatar"
           class="w-8 h-8 rounded-full overflow-hidden border border-white/10"
@@ -298,7 +298,7 @@
       </div>
       <button
         @click="handleLogout"
-        class="w-full flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-red-400 transition-colors group"
+        class="w-full flex items-center gap-3 px-3 py-3 text-slate-400 hover:text-red-400 transition-colors group"
       >
         <LogOut class="w-5 h-5 group-hover:text-red-400 transition-colors" />
         <span class="text-sm font-medium outfit">Logout</span>

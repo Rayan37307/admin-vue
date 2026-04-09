@@ -175,7 +175,7 @@ const defaultAvatar =
     </div>
 
     <!-- Content -->
-    <div v-else class="max-w-[1600px] mx-auto">
+    <div v-else class="w-full">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-6">
         <div>
           <h2 class="font-headline text-4xl text-primary-fixed-dim tracking-tight mb-2">

@@ -132,7 +132,7 @@ function dismissSuccess() {
       </button>
     </div>
 
-    <div class="max-w-6xl mx-auto pt-8">
+    <div class="w-full pt-8">
       <!-- Error banner -->
       <div
         v-if="store.creatingTaskError"

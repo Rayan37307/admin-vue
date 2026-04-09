@@ -9,8 +9,8 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Syne:wght@400..800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CDN for reliable matching -->
+
+    <!-- Tailwind CDN for runtime styling -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
       tailwind.config = {
@@ -53,7 +53,7 @@
       }
     </script>
   </head>
-  <body class="flex min-h-screen bg-surface">
+  <body class="min-h-screen bg-surface">
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>

@@ -164,7 +164,7 @@ watch(taskId, (newId) => {
     </div>
 
     <!-- Task content -->
-    <div v-else-if="taskData" class="max-w-7xl mx-auto">
+    <div v-else-if="taskData" class="w-full">
       <div class="mb-12">
         <nav class="flex items-center gap-2 text-sm text-on-surface-variant mb-4">
           <span>Tasks</span>

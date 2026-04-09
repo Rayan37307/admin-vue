@@ -27,7 +27,7 @@ const showTaskNav = computed<boolean>(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-surface">
+  <div class="min-h-screen bg-surface overflow-x-hidden">
     <!-- Show loading state while initializing auth from localStorage -->
     <div
       v-if="authInitializing"
@@ -80,7 +80,7 @@ const showTaskNav = computed<boolean>(() => {
       ></div>
 
       <!-- Main content area: sidebar offset + optional TaskNav + page content -->
-      <div class="md:ml-64 min-h-screen">
+      <div class="md:ml-56 min-h-screen">
         <!-- TaskNav appears only on /tasks/* routes -->
         <TaskNav v-if="showTaskNav" />
 

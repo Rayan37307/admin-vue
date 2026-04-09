@@ -205,7 +205,7 @@ const defaultAvatar =
 </script>
 
 <template>
-  <main class="min-h-screen bg-surface pt-24 pb-12 px-12">
+  <main class="min-h-screen bg-surface pt-24 pb-12 px-6">
     <!-- Loading state -->
     <div v-if="isLoading" class="flex items-center justify-center min-h-[50vh]">
       <div class="text-center">
@@ -230,7 +230,7 @@ const defaultAvatar =
     </div>
 
     <!-- Content -->
-    <div v-else-if="taskData" class="max-w-7xl mx-auto">
+    <div v-else-if="taskData" class="w-full">
       <!-- Header -->
       <section class="mb-12 flex flex-col md:flex-row justify-between items-end gap-6">
         <div>
@@ -711,7 +711,7 @@ const defaultAvatar =
   </main>
 
   <footer
-    class="mt-12 px-12 py-6 border-t border-outline-variant/15 bg-surface flex flex-col md:flex-row items-center justify-between gap-4"
+    class="mt-12 px-6 py-6 border-t border-outline-variant/15 bg-surface flex flex-col md:flex-row items-center justify-between gap-4"
   >
     <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">
       © 2024 Obsidian Architect • System Status: <span class="text-success">Operational</span>
