@@ -21,6 +21,10 @@ import AccessDenied from '../views/auth/AccessDenied.vue'
 // Messages views
 import Messages from '../views/messages/Messages.vue'
 
+// Notifications views
+import Notifications from '../views/notifications/Notifications.vue'
+import NotificationDetails from '../views/notifications/NotificationDetails.vue'
+
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -110,6 +114,19 @@ const routes: RouteRecordRaw[] = [
     path: '/messages',
     name: 'Messages',
     component: Messages,
+    meta: { requiresAuth: true }
+  },
+  // ─── Notifications Routes (protected) ──────────────────────────────────────
+  {
+    path: '/notifications',
+    name: 'Notifications',
+    component: Notifications,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/notifications/details',
+    name: 'NotificationDetails',
+    component: NotificationDetails,
     meta: { requiresAuth: true }
   }
 ]

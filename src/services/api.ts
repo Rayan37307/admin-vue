@@ -237,3 +237,106 @@ export async function sendConversationMessage(
   )
   return response.data
 }
+
+// ─── Notifications ───────────────────────────────────────────────────────────
+
+export interface NotificationData {
+  title?: string
+  message?: string
+  type?: string
+  sender?: {
+    name: string
+    avatar: string
+  }
+  status_change?: string
+  attachments?: Array<{
+    name: string
+    size: string
+    type: string
+    url?: string
+  }>
+  project_id?: number | string
+  project_name?: string
+  task_id?: number | string
+  task_name?: string
+  invoice_id?: number | string
+  invoice_name?: string
+  [key: string]: unknown
+}
+
+export interface NotificationResource {
+  id: string
+  type: string
+  data: NotificationData
+  read_at: string | null
+  read?: boolean
+  created_at: string
+  updated_at: string
+}
+
+export interface NotificationsResponse {
+  notifications?: NotificationResource[]
+  data?: NotificationResource[]
+  [key: string]: unknown
+}
+
+export interface NotificationDetailResponse {
+  notification?: NotificationResource
+  data?: NotificationResource
+  [key: string]: unknown
+}
+
+export interface UnreadCountResponse {
+  unread_count?: number
+  data?: { unread_count?: number }
+  [key: string]: unknown
+}
+
+/**
+ * Get all notifications for the authenticated user.
+ */
+export async function getNotifications(includeRead = false): Promise<NotificationsResponse> {
+  const response = await apiClient.get<NotificationsResponse>('/notifications', {
+    params: { include_read: includeRead },
+  })
+  return response.data
+}
+
+/**
+ * Get a single notification by ID.
+ */
+export async function getNotification(notificationId: string | number): Promise<NotificationDetailResponse> {
+  const response = await apiClient.get<NotificationDetailResponse>(`/notifications/${notificationId}`)
+  return response.data
+}
+
+/**
+ * Get the count of unread notifications.
+ */
+export async function getUnreadCount(): Promise<UnreadCountResponse> {
+  const response = await apiClient.get<UnreadCountResponse>('/notifications/unread-count')
+  return response.data
+}
+
+/**
+ * Mark a notification as read.
+ */
+export async function markAsRead(notificationId: string | number): Promise<unknown> {
+  const response = await apiClient.post(`/notifications/${notificationId}/read`)
+  return response.data
+}
+
+/**
+ * Mark all notifications as read.
+ */
+export async function markAllAsRead(): Promise<unknown> {
+  const response = await apiClient.post('/notifications/read-all')
+  return response.data
+}
+
+/**
+ * Delete a notification.
+ */
+export async function deleteNotification(notificationId: string | number): Promise<void> {
+  await apiClient.delete(`/notifications/${notificationId}`)
+}

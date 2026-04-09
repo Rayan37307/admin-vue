@@ -1,10 +1,10 @@
 <template>
-  <div class="space-y-6">
-    <div class="flex items-center justify-between">
+  <div class="flex flex-col h-[calc(100vh-2rem)]">
+    <div class="flex items-center justify-between shrink-0 mb-4">
       <h1 class="text-3xl font-bold text-white font-headline">Messages</h1>
     </div>
     <div
-      class="flex flex-1 h-[600px] overflow-hidden bg-surface rounded-2xl border border-white/5 relative"
+      class="flex flex-1 min-h-0 overflow-hidden bg-surface rounded-2xl border border-white/5 relative"
     >
       <!-- Channels Pane -->
       <div class="w-72 bg-surface-container/50 flex flex-col border-r border-white/5">
