@@ -28,6 +28,10 @@ import NotificationDetails from '../views/notifications/NotificationDetails.vue'
 // Profile
 import Profile from '../views/Profile.vue'
 
+// Roles
+import RolesList from '../views/roles/RolesList.vue'
+import RoleAdd from '../views/roles/RoleAdd.vue'
+
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -137,6 +141,19 @@ const routes: RouteRecordRaw[] = [
     path: '/profile',
     name: 'Profile',
     component: Profile,
+    meta: { requiresAuth: true }
+  },
+  // ─── Roles Routes (protected) ──────────────────────────────────────────────
+  {
+    path: '/roles',
+    name: 'RolesList',
+    component: RolesList,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/roles/add',
+    name: 'RoleAdd',
+    component: RoleAdd,
     meta: { requiresAuth: true }
   }
 ]
