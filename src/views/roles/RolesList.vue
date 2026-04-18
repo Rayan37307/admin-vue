@@ -284,8 +284,8 @@ interface SecurityLog {
 const roles = ref<Role[]>([
   {
     id: 1,
-    name: 'Project Manager',
-    description: 'Default administrative role',
+    name: 'Admin',
+    description: 'Full system access and administrative privileges',
     status: 'Active',
     color: 'bg-primary',
     users: [
@@ -295,12 +295,23 @@ const roles = ref<Role[]>([
   },
   {
     id: 2,
-    name: 'Senior Developer',
-    description: 'Write access to main repository',
+    name: 'Client',
+    description: 'View projects and communicate with team',
+    status: 'Active',
+    color: 'bg-secondary',
+    users: [
+      { name: 'David', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB55OfL1rYPbGOqTVSVlHuyXXRmSmUadTT9-ZfybeOKoxmAnTM2g8nYGtZJktI13NJ1GPhx4cr1-f17CO2Dws1iW3ZQipPJRQdV0QylikMU7Q_5tulpykHJbvSTT_4a9mDkuluXIHoFTrDfahbtRKGs5R7RPuXkdnvnd4I1jYdDS2uFSZgzBl0NGwl2ihNPnA_dmz6wO5LCntZxcOqbEfMwmuWZydV9hFgdhLFewHKeSUL9ClnimJtLMcaLvs06hMDCN9G8Tc9sQxs' },
+    ],
+  },
+  {
+    id: 3,
+    name: 'Worker',
+    description: 'Task execution and project collaboration',
     status: 'Active',
     color: 'bg-tertiary',
     users: [
-      { name: 'David', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB55OfL1rYPbGOqTVSVlHuyXXRmSmUadTT9-ZfybeOKoxmAnTM2g8nYGtZJktI13NJ1GPhx4cr1-f17CO2Dws1iW3ZQipPJRQdV0QylikMU7Q_5tulpykHJbvSTT_4a9mDkuluXIHoFTrDfahbtRKGs5R7RPuXkdnvnd4I1jYdDS2uFSZgzBl0NGwl2ihNPnA_dmz6wO5LCntZxcOqbEfMwmuWZydV9hFgdhLFewHKeSUL9ClnimJtLMcaLvs06hMDCN9G8Tc9sQxs' },
+      { name: 'Chloe', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBCIZyqaWXxONfNiGLS-xkOHsOQXdHFcJgIXj89oATEP1Fhxx006EepbeZ9nl4XiQTvxk8Kjsie1HP4PgsFTjFHYR26kZfASUFOQmiNrPsSU_pU7OWBlwoXrGuWZuM_3nlxacgsgwiMxxtd0wpS5cYamWRBSa0yOm4FTiHEjiz5suBK7mXuuPP5Gep6rNERsrD-wMIiJgdU0z6K2oPAhChuVGrWy1s_x3gQkQDu9zjcpboYc0UJXVmtedx-Mx6zj_W_zoBmmJlZ_0s' },
+      { name: 'Ryan', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBBEm9_mpUKx18Qpym7_8Vqa5qWxxUuZhf34YIYUlTf7uujf6qhdKnkmEDxxRK-hcijBtd_luzQFqH1cBGgd6A6WVRhR0SG5HUxMp8XAlw81_-CcUHcScKk8DJZhXl48U2bkcf1vVU8y5Xb5sXofjSpVNq2FXhTJbCLUlLw2Ovxatn6EdLbrrTZPeBjKZIWZVqFtpi_AbIMpvuuUDTPiHlTRrAH6AgKy72UCAKwTGTJ4mLZoY0peJSfKZLHd7FceRAbrc3aa-BAd7g' },
     ],
   },
 ])

@@ -32,6 +32,17 @@ import Profile from '../views/Profile.vue'
 import RolesList from '../views/roles/RolesList.vue'
 import RoleAdd from '../views/roles/RoleAdd.vue'
 
+// Team views
+import TeamList from '../views/team/TeamList.vue'
+import TeamAssign from '../views/team/TeamAssign.vue'
+
+// Client views
+import ClientsList from '../views/clients/ClientsList.vue'
+import ClientActivityLog from '../views/clients/ClientActivityLog.vue'
+import ClientDocumentVault from '../views/clients/ClientDocumentVault.vue'
+import ClientManagement from '../views/clients/ClientManagement.vue'
+import ClientProjectsGrid from '../views/clients/ClientProjectsGrid.vue'
+
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -154,6 +165,50 @@ const routes: RouteRecordRaw[] = [
     path: '/roles/add',
     name: 'RoleAdd',
     component: RoleAdd,
+    meta: { requiresAuth: true }
+  },
+  // ─── Team Routes (protected) ───────────────────────────────────────────────
+  {
+    path: '/team',
+    name: 'TeamList',
+    component: TeamList,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/team/assign',
+    name: 'TeamAssign',
+    component: TeamAssign,
+    meta: { requiresAuth: true }
+  },
+  // ─── Client Routes (protected) ─────────────────────────────────────────────
+  {
+    path: '/clients',
+    name: 'ClientsList',
+    component: ClientsList,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/clients/management',
+    name: 'ClientManagement',
+    component: ClientManagement,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/clients/activity',
+    name: 'ClientActivityLog',
+    component: ClientActivityLog,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/clients/documents',
+    name: 'ClientDocumentVault',
+    component: ClientDocumentVault,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/clients/projects',
+    name: 'ClientProjectsGrid',
+    component: ClientProjectsGrid,
     meta: { requiresAuth: true }
   }
 ]

@@ -356,9 +356,26 @@ export interface ProfileData {
   avatar_url?: string
   profile_image_link?: string
   role: string
+  bio?: string
   company_name?: string
+  payment_method?: string
+  address1?: string
+  address2?: string
+  city?: string
+  state?: string
+  zip_code?: string
+  country?: string
   client_profile?: {
     company_name?: string
+    address1?: string
+    address2?: string
+    city?: string
+    state?: string
+    zip_code?: string
+    country?: string
+  }
+  profile?: {
+    bio?: string
   }
 }
 

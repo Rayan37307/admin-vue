@@ -6,6 +6,7 @@ import {
   updateAvatar,
   getActivitySummary,
 } from '@/services/api'
+import type { ProfileData } from '@/services/api'
 
 export interface ProfileState {
   id: number
@@ -18,6 +19,14 @@ export interface ProfileState {
   avatar_url: string
   role: string
   company_name: string
+  bio: string
+  payment_method: string
+  address1: string
+  address2: string
+  city: string
+  state: string
+  zip_code: string
+  country: string
 }
 
 export const useProfileStore = defineStore('profile', () => {
@@ -48,7 +57,7 @@ export const useProfileStore = defineStore('profile', () => {
     try {
       const response = await getProfile()
       const user = response.user || response
-      const u = user as Record<string, unknown>
+      const u = user as unknown as ProfileData
 
       profile.value = {
         id: Number(u.id ?? 0),
@@ -61,6 +70,14 @@ export const useProfileStore = defineStore('profile', () => {
         avatar_url: (u.avatar as string) || (u.profile_image_link as string) || '',
         role: (u.role as string) || '',
         company_name: ((u.client_profile as Record<string, unknown> | undefined)?.company_name as string) || '',
+        bio: (u.bio as string) || (u.profile?.bio as string) || '',
+        payment_method: (u.payment_method as string) || '',
+        address1: ((u.client_profile as Record<string, unknown> | undefined)?.address1 as string) || '',
+        address2: ((u.client_profile as Record<string, unknown> | undefined)?.address2 as string) || '',
+        city: ((u.client_profile as Record<string, unknown> | undefined)?.city as string) || '',
+        state: ((u.client_profile as Record<string, unknown> | undefined)?.state as string) || '',
+        zip_code: ((u.client_profile as Record<string, unknown> | undefined)?.zip_code as string) || '',
+        country: ((u.client_profile as Record<string, unknown> | undefined)?.country as string) || '',
       }
     } catch (err: unknown) {
       const e = err as { response?: { data?: { message?: string } } }
@@ -77,7 +94,7 @@ export const useProfileStore = defineStore('profile', () => {
     try {
       const response = await updateProfile(payload)
       const user = response.user || response
-      const u = user as Record<string, unknown>
+      const u = user as unknown as ProfileData
 
       const nameParts = ((u.name as string) || '').split(' ')
       profile.value = {
@@ -91,6 +108,14 @@ export const useProfileStore = defineStore('profile', () => {
         avatar_url: (u.avatar as string) || (u.profile_image_link as string) || '',
         role: (u.role as string) || '',
         company_name: ((u.client_profile as Record<string, unknown> | undefined)?.company_name as string) || '',
+        bio: (u.bio as string) || (u.profile?.bio as string) || '',
+        payment_method: (u.payment_method as string) || '',
+        address1: ((u.client_profile as Record<string, unknown> | undefined)?.address1 as string) || '',
+        address2: ((u.client_profile as Record<string, unknown> | undefined)?.address2 as string) || '',
+        city: ((u.client_profile as Record<string, unknown> | undefined)?.city as string) || '',
+        state: ((u.client_profile as Record<string, unknown> | undefined)?.state as string) || '',
+        zip_code: ((u.client_profile as Record<string, unknown> | undefined)?.zip_code as string) || '',
+        country: ((u.client_profile as Record<string, unknown> | undefined)?.country as string) || '',
       }
     } catch (err: unknown) {
       const e = err as { response?: { data?: { message?: string } } }
