@@ -43,6 +43,9 @@ import ClientDocumentVault from '../views/clients/ClientDocumentVault.vue'
 import ClientManagement from '../views/clients/ClientManagement.vue'
 import ClientProjectsGrid from '../views/clients/ClientProjectsGrid.vue'
 
+// Settings
+import Settings from '../views/settings/Settings.vue'
+
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -209,6 +212,13 @@ const routes: RouteRecordRaw[] = [
     path: '/clients/projects',
     name: 'ClientProjectsGrid',
     component: ClientProjectsGrid,
+    meta: { requiresAuth: true }
+  },
+  // ─── Settings Route (protected) ───────────────────────────────────────────
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: Settings,
     meta: { requiresAuth: true }
   }
 ]
