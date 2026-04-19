@@ -1,6 +1,9 @@
 <template>
   <div class="p-4 sm:p-6 md:p-8 lg:p-10">
-    <div class="max-w-7xl mx-auto space-y-8 md:space-y-10 lg:space-y-12">
+    <div v-if="loading" class="flex items-center justify-center py-20">
+      <div class="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full"></div>
+    </div>
+    <div v-else class="max-w-7xl mx-auto space-y-8 md:space-y-10 lg:space-y-12">
       <!-- Header -->
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-6">
         <div>
@@ -650,18 +653,35 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import apiClient from '@/api/client'
+import {
+  getSessions,
+  revokeSession,
+  getSecuritySettings,
+  updateSecuritySettings,
+  changePassword,
+  getSystemInfo,
+  purgeCache,
+  exportDataAsJson
+} from '@/api/settings'
 
+const router = useRouter()
 const activeTab = ref('security')
+const loading = ref(false)
+const saving = ref(false)
+const sessions = ref<any[]>([])
+const systemInfo = ref<any>(null)
 
 const securityForm = reactive({
   current_password: '',
   new_password: '',
   confirm_password: '',
-  authenticatorEnabled: true,
+  authenticatorEnabled: false,
   smsEnabled: false,
   complexPasswords: true,
-  twoFaEnforcement: true,
+  twoFaEnforcement: false,
   reauthEnabled: false
 })
 
@@ -669,10 +689,19 @@ const notifForm = reactive({
   projectUpdates: true,
   fileUploads: true,
   billingAlerts: false,
+  emailMarketing: true,
+  productSurveys: false,
   generalChannel: true,
   designChannel: true,
   feedbackChannel: false,
   devChannel: true
+})
+
+const quietHours = reactive({
+  enabled: false,
+  start_time: '22:00',
+  end_time: '08:00',
+  timezone: 'UTC'
 })
 
 const prefForm = reactive({
@@ -681,4 +710,145 @@ const prefForm = reactive({
   emailMarketing: true,
   productSurveys: false
 })
+
+async function loadSettings() {
+  loading.value = true
+  try {
+    const [securityRes, notifRes, sessionsRes, sysRes] = await Promise.all([
+      apiClient.get('/settings/security').then(r => r.data).catch(() => ({ settings: {} })),
+      apiClient.get('/settings/notifications').then(r => r.data).catch(() => ({ notifications: {}, quiet_hours: {} })),
+      getSessions().catch(() => ({ sessions: [] })),
+      getSystemInfo().catch(() => ({ info: null }))
+    ])
+
+    const s = securityRes.settings || {}
+    securityForm.complexPasswords = s.complex_passwords ?? true
+    securityForm.twoFaEnforcement = s.two_fa_enforcement ?? false
+    securityForm.reauthEnabled = s.reauth_enabled ?? false
+    securityForm.authenticatorEnabled = s.authenticator_enabled ?? false
+
+    const n = notifRes.notifications || {}
+    notifForm.projectUpdates = n.project_updates !== false
+    notifForm.fileUploads = n.file_uploads !== false
+    notifForm.billingAlerts = n.billing_alerts ?? false
+    notifForm.emailMarketing = n.email_marketing !== false
+    notifForm.productSurveys = n.product_surveys ?? false
+    notifForm.generalChannel = n.general_channel !== false
+    notifForm.designChannel = n.design_channel !== false
+    notifForm.feedbackChannel = n.feedback_channel ?? false
+    notifForm.devChannel = n.dev_channel !== false
+
+    const qh = notifRes.quiet_hours || {}
+    quietHours.enabled = qh.enabled ?? false
+    quietHours.start_time = qh.start_time || '22:00'
+    quietHours.end_time = qh.end_time || '08:00'
+    quietHours.timezone = qh.timezone || 'UTC'
+
+    sessions.value = sessionsRes.sessions || []
+    systemInfo.value = sysRes.info
+  } catch (err) {
+    console.error('Failed to load settings:', err)
+  } finally {
+    loading.value = false
+  }
+}
+
+async function saveSecuritySettings() {
+  saving.value = true
+  try {
+    await updateSecuritySettings({
+      complex_passwords: securityForm.complexPasswords,
+      two_fa_enforcement: securityForm.twoFaEnforcement,
+      reauth_enabled: securityForm.reauthEnabled
+    })
+  } catch (err) {
+    console.error('Failed to save security settings:', err)
+  } finally {
+    saving.value = false
+  }
+}
+
+async function saveNotificationSettings() {
+  saving.value = true
+  try {
+    await apiClient.put('/settings/notifications', {
+      project_updates: notifForm.projectUpdates,
+      file_uploads: notifForm.fileUploads,
+      billing_alerts: notifForm.billingAlerts,
+      email_marketing: notifForm.emailMarketing,
+      product_surveys: notifForm.productSurveys,
+      general_channel: notifForm.generalChannel,
+      design_channel: notifForm.designChannel,
+      feedback_channel: notifForm.feedbackChannel,
+      dev_channel: notifForm.devChannel
+    })
+    await apiClient.put('/settings/quiet-hours', quietHours)
+  } catch (err) {
+    console.error('Failed to save notification settings:', err)
+  } finally {
+    saving.value = false
+  }
+}
+
+async function handlePasswordChange() {
+  if (securityForm.new_password !== securityForm.confirm_password) {
+    alert('Passwords do not match')
+    return
+  }
+  if (securityForm.new_password.length < 8) {
+    alert('Password must be at least 8 characters')
+    return
+  }
+  saving.value = true
+  try {
+    await changePassword(securityForm.current_password, securityForm.new_password)
+    securityForm.current_password = ''
+    securityForm.new_password = ''
+    securityForm.confirm_password = ''
+    alert('Password changed successfully')
+  } catch (err: any) {
+    alert(err.response?.data?.message || 'Failed to change password')
+  } finally {
+    saving.value = false
+  }
+}
+
+async function handleLogoutSession(id: number) {
+  try {
+    if (confirm('Are you sure you want to logout this device?')) {
+      await revokeSession(id)
+      sessions.value = sessions.value.filter(s => s.id !== id)
+    }
+  } catch (err) {
+    console.error('Failed to logout session:', err)
+  }
+}
+
+async function handlePurgeCache() {
+  if (confirm('Are you sure you want to purge the cache?')) {
+    try {
+      await purgeCache()
+      alert('Cache purged successfully')
+    } catch (err) {
+      alert('Failed to purge cache')
+    }
+  }
+}
+
+async function handleExport(type: 'pdf' | 'json') {
+  try {
+    const data = await exportDataAsJson()
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `user-data-${new Date().toISOString().split('T')[0]}.json`
+    a.click()
+    URL.revokeObjectURL(url)
+  } catch (err) {
+    alert('Failed to export data')
+  }
+}
+
+onMounted(loadSettings)
 </script>

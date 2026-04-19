@@ -46,10 +46,50 @@ import ClientProjectsGrid from '../views/clients/ClientProjectsGrid.vue'
 // Settings
 import Settings from '../views/settings/Settings.vue'
 
+// Dashboard
+import Dashboard from '../views/Dashboard.vue'
+
+// Activity
+import ActivityLogs from '../views/activity/ActivityLogs.vue'
+
+// Projects
+import ProjectsList from '../views/projects/ProjectsList.vue'
+import ProjectDetails from '../views/projects/ProjectDetails.vue'
+import ProjectTimeline from '../views/projects/ProjectTimeline.vue'
+import ProjectTeam from '../views/projects/ProjectTeam.vue'
+import ProjectHub from '../views/projects/ProjectHub.vue'
+import ProjectAssigned from '../views/projects/ProjectAssigned.vue'
+
+// Billing
+import BillingIndex from '../views/billing/BillingIndex.vue'
+import InvoiceList from '../views/billing/InvoiceList.vue'
+import Transactions from '../views/billing/Transactions.vue'
+import Payments from '../views/billing/Payments.vue'
+
+// Reports
+import FinancialReports from '../views/reports/FinancialReports.vue'
+import SalesReports from '../views/reports/SalesReports.vue'
+import Insights from '../views/reports/Insights.vue'
+import ReportsIndex from '../views/reports/ReportsIndex.vue'
+
+// Analytics
+import AnalyticsIndex from '../views/analytics/AnalyticsIndex.vue'
+import Operations from '../views/analytics/Operations.vue'
+import Marketing from '../views/analytics/Marketing.vue'
+import Executive from '../views/analytics/Executive.vue'
+
+// Files
+import FilesList from '../views/files/FilesList.vue'
+import FileDetails from '../views/files/FileDetails.vue'
+
+// Communication
+import CommunicationIndex from '../views/communication/CommunicationIndex.vue'
+import ChatDetails from '../views/communication/ChatDetails.vue'
+
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/tasks'
+    redirect: '/dashboard'
   },
   // ─── Auth Routes (public) ──────────────────────────────────────────────────
   {
@@ -219,6 +259,158 @@ const routes: RouteRecordRaw[] = [
     path: '/settings',
     name: 'Settings',
     component: Settings,
+    meta: { requiresAuth: true }
+  },
+  // ─── Dashboard Route (protected) ───────────────────────────────────────────
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard,
+    meta: { requiresAuth: true }
+  },
+  // ─── Activity Routes (protected) ───────────────────────────────────────────
+  {
+    path: '/activity',
+    name: 'ActivityLogs',
+    component: ActivityLogs,
+    meta: { requiresAuth: true }
+  },
+  // ─── Projects Routes (protected) ───────────────────────────────────────
+  {
+    path: '/projects',
+    name: 'ProjectsList',
+    component: ProjectsList,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/projects/details',
+    name: 'ProjectDetails',
+    component: ProjectDetails,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/projects/timeline',
+    name: 'ProjectTimeline',
+    component: ProjectTimeline,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/projects/team',
+    name: 'ProjectTeam',
+    component: ProjectTeam,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/projects/hub',
+    name: 'ProjectHub',
+    component: ProjectHub,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/projects/assigned',
+    name: 'ProjectAssigned',
+    component: ProjectAssigned,
+    meta: { requiresAuth: true }
+  },
+  // ─── Billing Routes (protected) ──────────────────────────────────────────
+  {
+    path: '/billing',
+    name: 'BillingIndex',
+    component: BillingIndex,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/billing/invoices',
+    name: 'InvoiceList',
+    component: InvoiceList,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/billing/transactions',
+    name: 'Transactions',
+    component: Transactions,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/billing/payments',
+    name: 'Payments',
+    component: Payments,
+    meta: { requiresAuth: true }
+  },
+  // ─── Reports Routes (protected) ───────────────────────────────────────
+  {
+    path: '/reports',
+    name: 'ReportsIndex',
+    component: ReportsIndex,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/reports/financial',
+    name: 'FinancialReports',
+    component: FinancialReports,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/reports/sales',
+    name: 'SalesReports',
+    component: SalesReports,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/reports/insights',
+    name: 'Insights',
+    component: Insights,
+    meta: { requiresAuth: true }
+  },
+  // ─── Analytics Routes (protected) ────────────────────────────────────────────
+  {
+    path: '/analytics',
+    name: 'AnalyticsIndex',
+    component: AnalyticsIndex,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/analytics/operations',
+    name: 'Operations',
+    component: Operations,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/analytics/marketing',
+    name: 'Marketing',
+    component: Marketing,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/analytics/executive',
+    name: 'Executive',
+    component: Executive,
+    meta: { requiresAuth: true }
+  },
+  // ─── Files Routes (protected) ───────────────────────────────────────
+  {
+    path: '/files',
+    name: 'FilesList',
+    component: FilesList,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/files/details',
+    name: 'FileDetails',
+    component: FileDetails,
+    meta: { requiresAuth: true }
+  },
+  // ─── Communication Routes (protected) ───────────────────────────────────
+  {
+    path: '/communication',
+    name: 'CommunicationIndex',
+    component: CommunicationIndex,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/communication/chat',
+    name: 'ChatDetails',
+    component: ChatDetails,
     meta: { requiresAuth: true }
   }
 ]

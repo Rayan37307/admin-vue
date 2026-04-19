@@ -310,6 +310,144 @@
           <span class="text-sm font-medium outfit">Team</span>
         </a>
       </RouterLink>
+
+      <RouterLink to="/dashboard" custom v-slot="{ href, navigate, isActive }">
+        <a
+          :href="href"
+          @click="navigate"
+          :class="[
+            'w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group',
+            isActive
+              ? 'bg-primary/10 text-primary'
+              : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+          ]"
+        >
+          <Home
+            :class="[
+              'w-5 h-5',
+              isActive
+                ? 'text-primary'
+                : 'text-slate-400 group-hover:text-slate-200 transition-colors'
+            ]"
+          />
+          <span class="text-sm font-medium outfit">Dashboard</span>
+        </a>
+      </RouterLink>
+
+      <RouterLink to="/activity" custom v-slot="{ href, navigate, isActive }">
+        <a
+          :href="href"
+          @click="navigate"
+          :class="[
+            'w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group',
+            isActive
+              ? 'bg-primary/10 text-primary'
+              : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+          ]"
+        >
+          <Activity
+            :class="[
+              'w-5 h-5',
+              isActive
+                ? 'text-primary'
+                : 'text-slate-400 group-hover:text-slate-200 transition-colors'
+            ]"
+          />
+          <span class="text-sm font-medium outfit">Activity</span>
+        </a>
+      </RouterLink>
+
+      <RouterLink to="/billing" custom v-slot="{ href, navigate, isActive }">
+        <a
+          :href="href"
+          @click="navigate"
+          :class="[
+            'w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group',
+            isActive
+              ? 'bg-primary/10 text-primary'
+              : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+          ]"
+        >
+          <CreditCard
+            :class="[
+              'w-5 h-5',
+              isActive
+                ? 'text-primary'
+                : 'text-slate-400 group-hover:text-slate-200 transition-colors'
+            ]"
+          />
+          <span class="text-sm font-medium outfit">Billing</span>
+        </a>
+      </RouterLink>
+
+      <RouterLink to="/reports" custom v-slot="{ href, navigate, isActive }">
+        <a
+          :href="href"
+          @click="navigate"
+          :class="[
+            'w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group',
+            isActive
+              ? 'bg-primary/10 text-primary'
+              : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+          ]"
+        >
+          <BarChart3
+            :class="[
+              'w-5 h-5',
+              isActive
+                ? 'text-primary'
+                : 'text-slate-400 group-hover:text-slate-200 transition-colors'
+            ]"
+          />
+          <span class="text-sm font-medium outfit">Reports</span>
+        </a>
+      </RouterLink>
+
+      <RouterLink to="/analytics" custom v-slot="{ href, navigate, isActive }">
+        <a
+          :href="href"
+          @click="navigate"
+          :class="[
+            'w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group',
+            isActive
+              ? 'bg-primary/10 text-primary'
+              : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+          ]"
+        >
+          <PieChart
+            :class="[
+              'w-5 h-5',
+              isActive
+                ? 'text-primary'
+                : 'text-slate-400 group-hover:text-slate-200 transition-colors'
+            ]"
+          />
+          <span class="text-sm font-medium outfit">Analytics</span>
+        </a>
+      </RouterLink>
+
+      <RouterLink to="/communication" custom v-slot="{ href, navigate, isActive }">
+        <a
+          :href="href"
+          @click="navigate"
+          :class="[
+            'w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group',
+            isActive
+              ? 'bg-primary/10 text-primary'
+              : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+          ]"
+        >
+          <MessageCircle
+            :class="[
+              'w-5 h-5',
+              isActive
+                ? 'text-primary'
+                : 'text-slate-400 group-hover:text-slate-200 transition-colors'
+            ]"
+          />
+          <span class="text-sm font-medium outfit">Communication</span>
+        </a>
+      </RouterLink>
     </nav>
 
     <!-- User Profile & Logout at Bottom -->
@@ -369,6 +507,11 @@ import {
   LogOut,
   X,
   ShieldCheck,
+  Home,
+  BarChart3,
+  PieChart,
+  Activity,
+  MessageCircle,
 } from 'lucide-vue-next'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
